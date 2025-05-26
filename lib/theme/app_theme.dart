@@ -9,5 +9,6 @@ class AppTheme {
 
     // AppBar theme
     appBarTheme: const AppBarTheme(color: primary, elevation: 0),
+    
   );
 }
