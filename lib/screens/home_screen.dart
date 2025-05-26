@@ -10,17 +10,17 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Damflix'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search_outlined),
-            onPressed: () {}),
+          IconButton(icon: const Icon(Icons.search_outlined), onPressed: () {}),
         ],
       ),
-      body: Column(children: [
-        CardSwiper(
-
-        )
-        // TODO: Scroll horizontal de películas
-      ]),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CardSwiper(),
+            MovieSlider(),
+          ],
+        ),
+      ),
     );
   }
 }
