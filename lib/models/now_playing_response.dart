@@ -2,14 +2,14 @@
 import 'dart:convert';
 
 class NowPlayingResponse {
-  Dates dates;
+  Dates? dates;
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
   NowPlayingResponse({
-    required this.dates,
+    this.dates,
     required this.page,
     required this.results,
     required this.totalPages,
@@ -23,7 +23,7 @@ class NowPlayingResponse {
 
   factory NowPlayingResponse.fromMap(Map<String, dynamic> json) =>
       NowPlayingResponse(
-        dates: Dates.fromMap(json["dates"]),
+        dates: json["dates"] != null ? Dates.fromMap(json["dates"]) : null,
         page: json["page"],
         results: List<Result>.from(
           json["results"].map((x) => Result.fromMap(x)),
@@ -33,7 +33,7 @@ class NowPlayingResponse {
       );
 
   Map<String, dynamic> toMap() => {
-    "dates": dates.toMap(),
+    "dates": dates?.toMap(),
     "page": page,
     "results": List<dynamic>.from(results.map((x) => x.toMap())),
     "total_pages": totalPages,
@@ -113,7 +113,9 @@ class Result {
     backdropPath: json["backdrop_path"],
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     id: json["id"],
-    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
+    originalLanguage:
+        originalLanguageValues.map[json["original_language"]] ??
+        OriginalLanguage.EN,
     originalTitle: json["original_title"],
     overview: json["overview"],
     popularity: json["popularity"]?.toDouble(),

@@ -3,9 +3,9 @@ import 'package:fl_peliculas/models/now_playing_response.dart';
 import 'package:flutter/material.dart';
 
 class CardSwiper extends StatelessWidget {
-  const CardSwiper({super.key, required this.movies});
-
   final List<Result> movies;
+
+  const CardSwiper({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class CardSwiper extends StatelessWidget {
                 () => Navigator.pushNamed(
                   context,
                   'details',
-                  arguments: 'movie-instance',
+                  arguments: movie,
                 ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

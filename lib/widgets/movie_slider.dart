@@ -1,7 +1,10 @@
+import 'package:fl_peliculas/models/models.dart';
 import 'package:flutter/material.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Result> movies;
+
+  const MovieSlider({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +25,9 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 20,
+              itemCount: movies.length,
               itemBuilder: (context, index) {
-                return _MoviePoster();
+                return _MoviePoster(movie: movies[index]);
               },
             ),
           ),
@@ -35,7 +38,9 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
-  const _MoviePoster({super.key});
+  final Result movie;
+
+  const _MoviePoster({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +52,17 @@ class _MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details', arguments: 'movie-instance'),
+            onTap:
+                () => Navigator.pushNamed(
+                  context,
+                  'details',
+                  arguments: movie,
+                ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage('https://placehold.co/300x400/png'),
+                image: NetworkImage(movie.fullPosterImg),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -61,7 +71,7 @@ class _MoviePoster extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            'El Señor de los Anillos: El Retorno del Rey',
+            movie.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
